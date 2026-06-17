@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binary Search Visualizer</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --red: #f85149;
+      --purple: #bc8cff;
+      --low: #1f6feb44;
+      --mid: #bc8cff44;
+      --high: #388bfd44;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    header h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -1px;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Controls */
+    .controls {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 28px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    input[type="text"], input[type="number"] {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      outline: none;
+      width: 200px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus { border-color: var(--accent); }
+
+    button {
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+    button:active { transform: scale(0.97); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn-secondary {
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: #000;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    /* Array visualization */
+    .array-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 20px;
+      margin-bottom: 22px;
+      overflow-x: auto;
+    }
+
+    .array-label-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+
+    .array-label-row span {
+      width: 52px;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .array-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .cell {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.35s, border-color 0.35s, transform 0.25s;
+      position: relative;
+    }
+
+    .cell.in-range {
+      background: var(--surface2);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .cell.out-range {
+      background: transparent;
+      border-color: #30363d44;
+      color: #30363d;
+    }
+
+    .cell.low { border-color: #1f6feb; background: var(--low); }
+    .cell.high { border-color: #388bfd; background: var(--high); }
+    .cell.mid {
+      border-color: var(--purple);
+      background: var(--mid);
+      transform: scale(1.12);
+      color: var(--purple);
+    }
+
+    .cell.found {
+      border-color: var(--green);
+      background: #3fb95033;
+      color: var(--green);
+      transform: scale(1.15);
+      animation: pulse 0.5s ease;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+      100% { transform: scale(1.15); }
+    }
+
+    .pointer-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 8px;
+      min-height: 22px;
+    }
+
+    .ptr {
+      width: 52px;
+      text-align: center;
+      font-size: 0.68rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+
+    .ptr.low-ptr { color: #1f6feb; }
+    .ptr.mid-ptr { color: var(--purple); }
+    .ptr.high-ptr { color: #388bfd; }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      border: 2px solid;
+    }
+
+    /* Steps log */
+    .steps-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 22px;
+    }
+
+    .steps-panel h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .step-entry {
+      display: flex;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--border);
+      background: var(--surface2);
+      font-size: 0.84rem;
+      line-height: 1.5;
+      transition: border-color 0.3s;
+    }
+
+    .step-entry.active { border-left-color: var(--purple); }
+    .step-entry.success { border-left-color: var(--green); }
+    .step-entry.fail { border-left-color: var(--red); }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      font-size: 0.75rem;
+      min-width: 26px;
+      padding-top: 1px;
+    }
+
+    .step-text { color: var(--text); }
+    .step-text .kw { color: var(--purple); font-weight: 600; }
+    .step-text .val { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+    .step-text .ok { color: var(--green); font-weight: 600; }
+    .step-text .fail { color: var(--red); font-weight: 600; }
+
+    /* Code panel */
+    .code-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+
+    .code-panel h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--text);
+      overflow-x: auto;
+    }
+
+    .code-line {
+      display: block;
+      padding: 1px 8px;
+      border-radius: 4px;
+      transition: background 0.25s;
+    }
+
+    .code-line.highlight {
+      background: #bc8cff22;
+      border-left: 3px solid var(--purple);
+      padding-left: 5px;
+    }
+
+    .kw2 { color: #ff7b72; }
+    .fn { color: #d2a8ff; }
+    .cm { color: #8b949e; font-style: italic; }
+    .str { color: #a5d6ff; }
+    .num { color: #79c0ff; }
+
+    /* Status bar */
+    .status-bar {
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .status-bar.searching { color: var(--accent); border-color: var(--accent); }
+    .status-bar.found { color: var(--green); border-color: var(--green); background: #3fb95011; }
+    .status-bar.not-found { color: var(--red); border-color: var(--red); background: #f8514911; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .cell { width: 38px; height: 38px; font-size: 0.8rem; }
+      .array-label-row span, .ptr { width: 38px; }
+      input[type="text"], input[type="number"] { width: 140px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>⟨ Binary Search ⟩</h1>
+    <p>Step-by-step interactive visualization in Python logic</p>
+  </header>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-group">
+      <label>Sorted Array (comma-separated)</label>
+      <input type="text" id="arrayInput" value="2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91" />
+    </div>
+    <div class="control-group">
+      <label>Target Value</label>
+      <input type="number" id="targetInput" value="23" />
+    </div>
+    <div class="control-group" style="align-self: flex-end;">
+      <button class="btn-primary" onclick="initSearch()">▶ Start</button>
+    </div>
+  </div>
+
+  <!-- Step buttons -->
+  <div class="btn-row">
+    <button class="btn-secondary" id="prevBtn" onclick="stepBack()" disabled>◀ Prev</button>
+    <button class="btn-green" id="nextBtn" onclick="stepForward()" disabled>Next ▶</button>
+    <button class="btn-secondary" id="autoBtn" onclick="toggleAuto()" disabled>⏵ Auto-play</button>
+    <button class="btn-secondary" onclick="resetAll()">↺ Reset</button>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar" id="statusBar">Enter array and target, then click ▶ Start</div>
+
+  <!-- Array visualization -->
+  <div class="array-wrap">
+    <div class="array-label-row" id="labelRow"></div>
+    <div class="array-row" id="arrayRow"></div>
+    <div class="pointer-row" id="ptrRow"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="border-color:#1f6feb;background:var(--low)"></div> low</div>
+      <div class="legend-item"><div class="legend-dot" style="border-color:var(--purple);background:var(--mid)"></div> mid</div>
+      <div class="legend-item"><div class="legend-dot" style="border-color:#388bfd;background:var(--high)"></div> high</div>
+      <div class="legend-item"><div class="legend-dot" style="border-color:var(--green);background:#3fb95033"></div> found</div>
+      <div class="legend-item"><div class="legend-dot" style="border-color:var(--border);background:transparent;opacity:0.4"></div> out of range</div>
+    </div>
+  </div>
+
+  <!-- Python Code -->
+  <div class="code-panel">
+    <h2># Python Code</h2>
+    <pre id="codePre"></pre>
+  </div>
+
+  <!-- Steps log -->
+  <div class="steps-panel">
+    <h2>📋 Execution Steps</h2>
+    <div id="stepsLog"></div>
+  </div>
+</div>
+
+<script>
+  // Code lines
+  const CODE_LINES = [
+    { text: '<span class="kw2">def</span> <span class="fn">binary_search</span>(arr, target):', line: 0 },
+    { text: '    low = <span class="num">0</span>', line: 1 },
+    { text: '    high = len(arr) - <span class="num">1</span>', line: 2 },
+    { text: '', line: -1 },
+    { text: '    <span class="kw2">while</span> low &lt;= high:', line: 4 },
+    { text: '        mid = (low + high) // <span class="num">2</span>', line: 5 },
+    { text: '', line: -1 },
+    { text: '        <span class="kw2">if</span> arr[mid] == target:', line: 7 },
+    { text: '            <span class="kw2">return</span> mid  <span class="cm"># Found!</span>', line: 8 },
+    { text: '        <span class="kw2">elif</span> arr[mid] &lt; target:', line: 9 },
+    { text: '            low = mid + <span class="num">1</span>  <span class="cm"># Search right half</span>', line: 10 },
+    { text: '        <span class="kw2">else</span>:', line: 11 },
+    { text: '            high = mid - <span class="num">1</span>  <span class="cm"># Search left half</span>', line: 12 },
+    { text: '', line: -1 },
+    { text: '    <span class="kw2">return</span> -<span class="num">1</span>  <span class="cm"># Not found</span>', line: 14 },
+  ];
+
+  let arr = [], target = 0;
+  let steps = [], currentStep = -1;
+  let autoTimer = null;
+
+  function buildCode() {
+    const pre = document.getElementById('codePre');
+    pre.innerHTML = CODE_LINES.map((l, i) =>
+      `<span class="code-line" id="cl${i}">${l.text || ' '}</span>`
+    ).join('');
+  }
+
+  function highlightCode(lineNum) {
+    document.querySelectorAll('.code-line').forEach(el => el.classList.remove('highlight'));
+    CODE_LINES.forEach((l, i) => {
+      if (l.line === lineNum) document.getElementById('cl' + i).classList.add('highlight');
+    });
+  }
+
+  function renderArray(low, high, mid, foundIdx) {
+    const labelRow = document.getElementById('labelRow');
+    const arrayRow = document.getElementById('arrayRow');
+    const ptrRow = document.getElementById('ptrRow');
+
+    labelRow.innerHTML = arr.map((_, i) =>
+      `<span>[${i}]</span>`
+    ).join('');
+
+    arrayRow.innerHTML = arr.map((v, i) => {
+      let cls = 'cell';
+      if (foundIdx !== undefined && i === foundIdx) cls += ' found';
+      else if (i < low || i > high) cls += ' out-range';
+      else if (i === mid) cls += ' mid';
+      else if (i === low) cls += ' low';
+      else if (i === high) cls += ' high';
+      else cls += ' in-range';
+      return `<div class="${cls}">${v}</div>`;
+    }).join('');
+
+    ptrRow.innerHTML = arr.map((_, i) => {
+      let labels = [];
+      if (i === low && foundIdx === undefined) labels.push('<span class="low-ptr">L</span>');
+      if (i === mid && foundIdx === undefined) labels.push('<span class="mid-ptr">M</span>');
+      if (i === high && foundIdx === undefined) labels.push('<span class="high-ptr">H</span>');
+      return `<div class="ptr">${labels.join('')}</div>`;
+    }).join('');
+  }
+
+  function generateSteps() {
+    steps = [];
+    let low = 0, high = arr.length - 1;
+
+    steps.push({ low, high, mid: undefined, codeLine: 1, desc: `Initialize: <span class="kw">low</span> = <span class="val">${low}</span>`, type: 'active' });
+    steps.push({ low, high, mid: undefined, codeLine: 2, desc: `Initialize: <span class="kw">high</span> = <span class="val">${high}</span>`, type: 'active' });
+
+    let iteration = 1;
+    while (low <= high) {
+      steps.push({ low, high, mid: undefined, codeLine: 4, desc: `<span class="kw">Iteration ${iteration}:</span> Check while <span class="val">${low}</span> ≤ <span class="val">${high}</span> → <span class="ok">True</span>`, type: 'active' });
+
+      const mid = Math.floor((low + high) / 2);
+      steps.push({ low, high, mid, codeLine: 5, desc: `Compute <span class="kw">mid</span> = (${low} + ${high}) // 2 = <span class="val">${mid}</span>`, type: 'active' });
+
+      if (arr[mid] === target) {
+        steps.push({ low, high, mid, foundIdx: mid, codeLine: 7, desc: `Compare: arr[<span class="val">${mid}</span>] = <span class="val">${arr[mid]}</span> == <span class="val">${target}</span> → <span class="ok">MATCH!</span>`, type: 'success' });
+        steps.push({ low, high, mid, foundIdx: mid, codeLine: 8, desc: `<span class="ok">✓ Found!</span> Return index <span class="val">${mid}</span>. Target <span class="val">${target}</span> at position <span class="val">${mid}</span>.`, type: 'success' });
+        return;
+      } else if (arr[mid] < target) {
+        steps.push({ low, high, mid, codeLine: 9, desc: `Compare: arr[<span class="val">${mid}</span>] = <span class="val">${arr[mid]}</span> &lt; <span class="val">${target}</span> → search <span class="kw">right half</span>`, type: 'active' });
+        low = mid + 1;
+        steps.push({ low, high, mid, codeLine: 10, desc: `Update <span class="kw">low</span> = ${mid} + 1 = <span class="val">${low}</span>`, type: 'active' });
+      } else {
+        steps.push({ low, high, mid, codeLine: 11, desc: `Compare: arr[<span class="val">${mid}</span>] = <span class="val">${arr[mid]}</span> &gt; <span class="val">${target}</span> → search <span class="kw">left half</span>`, type: 'active' });
+        high = mid - 1;
+        steps.push({ low, high, mid, codeLine: 12, desc: `Update <span class="kw">high</span> = ${mid} - 1 = <span class="val">${high}</span>`, type: 'active' });
+      }
+      iteration++;
+    }
+
+    steps.push({ low, high, mid: undefined, codeLine: 4, desc: `Check while <span class="val">${low}</span> ≤ <span class="val">${high}</span> → <span class="fail">False</span>. Loop ends.`, type: 'fail' });
+    steps.push({ low, high, mid: undefined, codeLine: 14, desc: `<span class="fail">✗ Not found.</span> Target <span class="val">${target}</span> is not in the array. Return <span class="val">-1</span>.`, type: 'fail' });
+  }
+
+  function applyStep(i) {
+    const s = steps[i];
+    const low = s.low ?? 0;
+    const high = s.high ?? arr.length - 1;
+    const mid = s.mid;
+    const foundIdx = s.foundIdx;
+
+    renderArray(low, high, mid, foundIdx);
+    highlightCode(s.codeLine);
+
+    // Update steps log
+    const log = document.getElementById('stepsLog');
+    const entries = log.querySelectorAll('.step-entry');
+    entries.forEach((el, idx) => {
+      el.classList.remove('active');
+      if (idx === i) el.classList.add('active');
+    });
+    if (entries[i]) entries[i].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Status bar
+    const status = document.getElementById('statusBar');
+    if (s.type === 'success') {
+      status.className = 'status-bar found';
+      status.textContent = `✓ Target ${target} found at index ${foundIdx}`;
+    } else if (s.type === 'fail') {
+      status.className = 'status-bar not-found';
+      status.textContent = `✗ Target ${target} not found in array`;
+    } else {
+      status.className = 'status-bar searching';
+      status.textContent = `Searching... Step ${i + 1} of ${steps.length}`;
+    }
+
+    document.getElementById('prevBtn').disabled = i === 0;
+    document.getElementById('nextBtn').disabled = i === steps.length - 1;
+  }
+
+  function buildLog() {
+    const log = document.getElementById('stepsLog');
+    log.innerHTML = steps.map((s, i) =>
+      `<div class="step-entry ${s.type}" id="step${i}">
+        <div class="step-num">${String(i + 1).padStart(2, '0')}</div>
+        <div class="step-text">${s.desc}</div>
+      </div>`
+    ).join('');
+  }
+
+  function initSearch() {
+    clearAuto();
+    const rawArr = document.getElementById('arrayInput').value.split(',').map(x => parseInt(x.trim())).filter(n => !isNaN(n));
+    if (rawArr.length === 0) { alert('Please enter a valid array.'); return; }
+    arr = rawArr.sort((a, b) => a - b);
+    document.getElementById('arrayInput').value = arr.join(', ');
+    target = parseInt(document.getElementById('targetInput').value);
+    if (isNaN(target)) { alert('Please enter a valid target.'); return; }
+
+    buildCode();
+    generateSteps();
+    buildLog();
+    currentStep = 0;
+    applyStep(0);
+
+    document.getElementById('nextBtn').disabled = false;
+    document.getElementById('autoBtn').disabled = false;
+    document.getElementById('prevBtn').disabled = true;
+  }
+
+  function stepForward() {
+    if (currentStep < steps.length - 1) { currentStep++; applyStep(currentStep); }
+  }
+
+  function stepBack() {
+    if (currentStep > 0) { currentStep--; applyStep(currentStep); }
+  }
+
+  function toggleAuto() {
+    if (autoTimer) {
+      clearAuto();
+    } else {
+      document.getElementById('autoBtn').textContent = '⏸ Pause';
+      autoTimer = setInterval(() => {
+        if (currentStep < steps.length - 1) {
+          currentStep++; applyStep(currentStep);
+        } else { clearAuto(); }
+      }, 900);
+    }
+  }
+
+  function clearAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    document.getElementById('autoBtn').textContent = '⏵ Auto-play';
+  }
+
+  function resetAll() {
+    clearAuto();
+    arr = []; steps = []; currentStep = -1;
+    document.getElementById('arrayRow').innerHTML = '';
+    document.getElementById('labelRow').innerHTML = '';
+    document.getElementById('ptrRow').innerHTML = '';
+    document.getElementById('stepsLog').innerHTML = '';
+    document.getElementById('codePre').innerHTML = '';
+    const sb = document.getElementById('statusBar');
+    sb.className = 'status-bar';
+    sb.textContent = 'Enter array and target, then click ▶ Start';
+    ['prevBtn','nextBtn','autoBtn'].forEach(id => document.getElementById(id).disabled = true);
+  }
+
+  // Initialize code display
+  buildCode();
+</script>
+</body>
+</html>
