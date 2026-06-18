@@ -1,382 +1,242 @@
+Attachment sravanthi_frontpage.html added.None selected 
+
+Skip to content
+Using Gmail with screen readers
+
+1 of 1,310
+index page new
+Inbox
+
+Sravanthi Anusuri <sravanthi739@gmail.com>
+Attachments
+11:27 AM (0 minutes ago)
+to me
+
+
+ One attachment
+  •  Scanned by Gmail
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>A Sravanthi | Assistant Professor – ANITS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Sravanthi – Data Structures using Python</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy:    #1B2A4A;
-      --teal:    #1A6B72;
-      --gold:    #C8963E;
-      --cream:   #F8F5EF;
-      --white:   #FFFFFF;
-      --border:  #D6D0C4;
-      --text:    #2D2D2D;
-      --muted:   #6B6B6B;
-      --row-alt: #F0EDE7;
-    }
-
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--cream);
-      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1a1a1a;
       min-height: 100vh;
+      padding: 2rem 1rem;
     }
+    .container { max-width: 900px; margin: 0 auto; }
 
-    /* ── HEADER ─────────────────────────────── */
-    header {
-      background: var(--navy);
-      color: var(--white);
-      padding: 0;
+    /* HERO */
+    .hero {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #e0e0e0;
+      padding: 2rem 2rem 1.75rem;
+      margin-bottom: 1.5rem;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
-
-    .header-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 48px 32px 40px;
-      display: flex;
-      align-items: center;
-      gap: 36px;
+    .hero-accent {
+      position: absolute; top: 0; left: 0;
+      width: 6px; height: 100%;
+      background: linear-gradient(180deg, #1D9E75, #0F6E56);
+      border-radius: 16px 0 0 16px;
     }
-
+    .hero-inner { margin-left: 1rem; }
+    .hero-top { display: flex; align-items: center; gap: 1.25rem; }
     .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      background: var(--teal);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--white);
-      flex-shrink: 0;
-      border: 3px solid var(--gold);
+      width: 76px; height: 76px; border-radius: 50%;
+      background: #E1F5EE;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 700; color: #0F6E56;
+      border: 2.5px solid #5DCAA5; flex-shrink: 0; letter-spacing: 1px;
     }
-
-    .header-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      line-height: 1.2;
-    }
-
-    .header-text .role {
-      margin-top: 6px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #A8C8CC;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .header-text .since {
-      margin-top: 4px;
-      font-size: 0.82rem;
-      color: #7A9BAA;
-      font-weight: 300;
-    }
-
-    .header-accent {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--gold) 0%, var(--teal) 100%);
-    }
-
-    /* ── CURRENT SUBJECT BANNER ──────────────── */
-    .subject-banner {
-      background: var(--teal);
-      color: var(--white);
-      padding: 14px 32px;
-    }
-
-    .subject-banner-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .subject-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      opacity: 0.75;
-      font-weight: 600;
-    }
-
-    .subject-divider {
-      width: 1px;
-      height: 16px;
-      background: rgba(255,255,255,0.3);
-    }
-
-    .subject-name {
-      font-size: 0.97rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-
+    .hero-name { font-size: 26px; font-weight: 700; color: #111; line-height: 1.2; }
+    .hero-role { font-size: 14px; color: #666; margin-top: 5px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.25rem; }
     .badge {
-      margin-left: auto;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: 3px 12px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12.5px; padding: 5px 13px; border-radius: 20px; font-weight: 500;
+    }
+    .badge-teal  { background: #E1F5EE; color: #0F6E56; }
+    .badge-blue  { background: #E6F1FB; color: #185FA5; }
+    .badge-amber { background: #FAEEDA; color: #854F0B; }
+
+    /* SUBJECT CARD */
+    .subject-card {
+      background: #ffffff; border: 1px solid #e0e0e0; border-radius: 14px;
+      padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .subject-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: #E1F5EE;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .subject-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .subject-name { font-size: 19px; font-weight: 600; color: #111; }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 16px; font-weight: 600; color: #222;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
     }
 
-    /* ── MAIN CONTENT ────────────────────────── */
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 40px 32px 64px;
+    /* TABLE */
+    .table-wrap {
+      background: #ffffff; border-radius: 14px;
+      border: 1px solid #e0e0e0; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
-
-    .section-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 6px;
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #f8f9fb; }
+    th {
+      padding: 13px 18px; text-align: left;
+      font-size: 12.5px; font-weight: 600; color: #555;
+      border-bottom: 1px solid #e5e5e5;
+      letter-spacing: 0.03em; text-transform: uppercase;
     }
-
-    .section-sub {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 24px;
+    td {
+      padding: 14px 18px; font-size: 14px; color: #222;
+      border-bottom: 1px solid #f0f0f0; vertical-align: middle;
     }
-
-    /* ── TABLE ───────────────────────────────── */
-    .table-wrapper {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 12px rgba(27,42,74,0.07);
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #fafcff; }
+    .topic-cell { display: flex; align-items: center; gap: 10px; }
+    .topic-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: #E1F5EE; color: #0F6E56;
+      font-size: 11px; font-weight: 600; flex-shrink: 0;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
+    .actions-cell { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12.5px; padding: 5px 12px; border-radius: 8px;
+      text-decoration: none; font-weight: 500; border: 1px solid;
+      transition: opacity 0.15s, transform 0.1s; cursor: pointer;
     }
+    .btn-link:hover { opacity: 0.8; transform: translateY(-1px); }
+    .btn-notes { background: #E6F1FB; color: #185FA5; border-color: #B5D4F4; }
+    .btn-quiz  { background: #FAEEDA; color: #854F0B; border-color: #FAC775; }
 
-    thead tr {
-      background: var(--navy);
-      color: var(--white);
-    }
-
-    thead th {
-      padding: 14px 20px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    thead th:first-child { border-radius: 0; }
-
-    tbody tr {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-    }
-
-    tbody tr:nth-child(even) { background: var(--row-alt); }
-    tbody tr:hover { background: #E8F4F5; }
-    tbody tr:last-child { border-bottom: none; }
-
-    tbody td {
-      padding: 13px 20px;
-      vertical-align: middle;
-    }
-
-    tbody td:first-child {
-      font-weight: 500;
-      color: var(--navy);
-    }
-
-    .quiz-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--teal);
-      color: var(--white);
-      text-decoration: none;
-      padding: 5px 14px;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      transition: background 0.15s, transform 0.1s;
-    }
-
-    .quiz-link:hover {
-      background: var(--navy);
-      transform: translateY(-1px);
-    }
-
-    .quiz-link svg {
-      width: 12px; height: 12px; fill: currentColor;
-    }
-
-    /* ── FOOTER ──────────────────────────────── */
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.75rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
+    /* FOOTER */
+    .footer {
+      margin-top: 1.75rem; text-align: center;
+      font-size: 12.5px; color: #999;
+      padding-top: 1rem; border-top: 1px solid #e5e5e5;
     }
 
     @media (max-width: 600px) {
-      .header-inner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 32px 20px 28px; }
-      .header-text h1 { font-size: 1.5rem; }
-      main { padding: 28px 16px 48px; }
-      .subject-banner { padding: 12px 16px; }
-      .badge { margin-left: 0; }
+      .hero-name { font-size: 20px; }
+      .btn-link span { display: none; }
     }
   </style>
 </head>
 <body>
+<div class="container">
 
-  <!-- HEADER -->
-  <header>
-    <div class="header-inner">
-      <div class="avatar">AS</div>
-      <div class="header-text">
-        <h1>A Sravanthi</h1>
-        <div class="role">Assistant Professor &nbsp;·&nbsp; ANITS</div>
-        <div class="since">Working since July 2023</div>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-accent"></div>
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="avatar">AS</div>
+        <div>
+          <div class="hero-name">A Sravanthi</div>
+          <div class="hero-role">Assistant Professor &nbsp;·&nbsp; ANITS (Anil Neerukonda Institute of Technology &amp; Sciences)</div>
+        </div>
       </div>
-    </div>
-    <div class="header-accent"></div>
-  </header>
-
-  <!-- CURRENT SUBJECT -->
-  <div class="subject-banner">
-    <div class="subject-banner-inner">
-      <span class="subject-label">Current Semester</span>
-      <div class="subject-divider"></div>
-      <span class="subject-name">Data Structures Using Python</span>
-      <span class="badge">Active</span>
+      <div class="badges">
+        <span class="badge badge-teal"><i class="ti ti-calendar"></i> Working since July 2023</span>
+        <span class="badge badge-blue"><i class="ti ti-building-bank"></i> Department of CSE</span>
+        <span class="badge badge-amber"><i class="ti ti-map-pin"></i> Bheemunipatnam, Visakhapatnam</span>
+      </div>
     </div>
   </div>
 
-  <!-- MAIN -->
-  <main>
-    <h2 class="section-heading">Course Topics &amp; Quizzes</h2>
-    <p class="section-sub">Click <strong>Take Quiz</strong> next to any topic to test your understanding.</p>
-
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Topic</th>
-            <th>Quiz</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Introduction to Python &amp; Data Structures</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Arrays and Lists</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Stacks</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Queues</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Linked Lists</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Trees &amp; Binary Trees</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Binary Search Trees</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Hashing &amp; Hash Tables</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Graphs</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Sorting Algorithms</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-          <tr>
-            <td>Searching Algorithms</td>
-            <td><a href="#" class="quiz-link">
-              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
-              Take Quiz
-            </a></td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- CURRENT SUBJECT -->
+  <div class="subject-card">
+    <div class="subject-icon">
+      <i class="ti ti-binary-tree" style="font-size: 26px; color: #1D9E75;"></i>
     </div>
-  </main>
+    <div>
+      <div class="subject-label">Current Semester Subject</div>
+      <div class="subject-name">Data Structures using Python</div>
+    </div>
+  </div>
 
-  <footer>
-    &copy; 2024 A Sravanthi &nbsp;·&nbsp; ANITS &nbsp;·&nbsp; Department of Computer Science
-  </footer>
+  <!-- COURSE TABLE -->
+  <div class="section-title">
+    <i class="ti ti-books" style="font-size: 18px; color: #1D9E75;"></i>
+    Course Topics
+  </div>
 
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Notes</th>
+          <th>Quiz</th>
+        </tr>
+      </thead>
+      <tbody id="topicBody"></tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <i class="ti ti-school"></i> &nbsp;
+    A Sravanthi &nbsp;·&nbsp; ANITS &nbsp;·&nbsp; Data Structures using Python &nbsp;·&nbsp; Academic Year 2024–25
+  </div>
+
+</div>
+
+<script>
+const topics = [
+  { name: "Introduction to Data Structures",  notes: "notes_intro.html",      quiz: "quiz_intro.html" },
+  { name: "Arrays and Lists",                  notes: "notes_arrays.html",     quiz: "quiz_arrays.html" },
+  { name: "Stacks",                            notes: "notes_stacks.html",     quiz: "quiz_stacks.html" },
+  { name: "Queues",                            notes: "notes_queues.html",     quiz: "quiz_queues.html" },
+  { name: "Linked Lists",                      notes: "notes_linkedlist.html", quiz: "quiz_linkedlist.html" },
+  { name: "Trees & Binary Trees",              notes: "notes_trees.html",      quiz: "quiz_trees.html" },
+  { name: "Binary Search Trees (BST)",         notes: "notes_bst.html",        quiz: "quiz_bst.html" },
+  { name: "Heaps",                             notes: "notes_heaps.html",      quiz: "quiz_heaps.html" },
+  { name: "Graphs",                            notes: "notes_graphs.html",     quiz: "quiz_graphs.html" },
+  { name: "Hashing",                           notes: "notes_hashing.html",    quiz: "quiz_hashing.html" },
+  { name: "Sorting Algorithms",               notes: "notes_sorting.html",    quiz: "quiz_sorting.html" },
+  { name: "Searching Algorithms",             notes: "notes_searching.html",  quiz: "quiz_searching.html" },
+];
+
+const tbody = document.getElementById("topicBody");
+topics.forEach((t, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td><div class="topic-cell"><span class="topic-num">${i+1}</span>${t.name}</div></td>
+    <td><div class="actions-cell">
+      <a class="btn-link btn-notes" href="${t.notes}">
+        <i class="ti ti-file-text"></i><span>Notes</span>
+      </a>
+    </div></td>
+    <td><div class="actions-cell">
+      <a class="btn-link btn-quiz" href="${t.quiz}">
+        <i class="ti ti-clipboard-check"></i><span>Quiz</span>
+      </a>
+    </div></td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
 </body>
 </html>
+sravanthi_frontpage.html
+Displaying sravanthi_frontpage.html.
