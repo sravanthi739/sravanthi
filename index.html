@@ -1,22 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Sravanthi | Assistant Professor – ANITS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #1B2A4A;
+      --teal:    #1A6B72;
+      --gold:    #C8963E;
+      --cream:   #F8F5EF;
+      --white:   #FFFFFF;
+      --border:  #D6D0C4;
+      --text:    #2D2D2D;
+      --muted:   #6B6B6B;
+      --row-alt: #F0EDE7;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 32px 40px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+      border: 3px solid var(--gold);
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+
+    .header-text .role {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #A8C8CC;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .header-text .since {
+      margin-top: 4px;
+      font-size: 0.82rem;
+      color: #7A9BAA;
+      font-weight: 300;
+    }
+
+    .header-accent {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--teal) 100%);
+    }
+
+    /* ── CURRENT SUBJECT BANNER ──────────────── */
+    .subject-banner {
+      background: var(--teal);
+      color: var(--white);
+      padding: 14px 32px;
+    }
+
+    .subject-banner-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .subject-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
+      font-weight: 600;
+    }
+
+    .subject-divider {
+      width: 1px;
+      height: 16px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    .subject-name {
+      font-size: 0.97rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .badge {
+      margin-left: auto;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── MAIN CONTENT ────────────────────────── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 32px 64px;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .section-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    /* ── TABLE ───────────────────────────────── */
+    .table-wrapper {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(27,42,74,0.07);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    thead tr {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    thead th {
+      padding: 14px 20px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    thead th:first-child { border-radius: 0; }
+
+    tbody tr {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:nth-child(even) { background: var(--row-alt); }
+    tbody tr:hover { background: #E8F4F5; }
+    tbody tr:last-child { border-bottom: none; }
+
+    tbody td {
+      padding: 13px 20px;
+      vertical-align: middle;
+    }
+
+    tbody td:first-child {
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    .quiz-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .quiz-link:hover {
+      background: var(--navy);
+      transform: translateY(-1px);
+    }
+
+    .quiz-link svg {
+      width: 12px; height: 12px; fill: currentColor;
+    }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 32px 20px 28px; }
+      .header-text h1 { font-size: 1.5rem; }
+      main { padding: 28px 16px 48px; }
+      .subject-banner { padding: 12px 16px; }
+      .badge { margin-left: 0; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>This is a sample index.html page.</p>
-    <a href="binary_search_visualization.html"> BINARY SEARCH</a>
-    <a href="binary_search_quiz.html"> BINARY SEARCH_QUIZ</a>
 
-    <button onclick="showMessage()">Click Me</button>
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="avatar">AS</div>
+      <div class="header-text">
+        <h1>A Sravanthi</h1>
+        <div class="role">Assistant Professor &nbsp;·&nbsp; ANITS</div>
+        <div class="since">Working since July 2023</div>
+      </div>
+    </div>
+    <div class="header-accent"></div>
+  </header>
 
-    <script>
-        function showMessage() {
-            alert("Hello, World!");
-        }
-    </script>
+  <!-- CURRENT SUBJECT -->
+  <div class="subject-banner">
+    <div class="subject-banner-inner">
+      <span class="subject-label">Current Semester</span>
+      <div class="subject-divider"></div>
+      <span class="subject-name">Data Structures Using Python</span>
+      <span class="badge">Active</span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+    <h2 class="section-heading">Course Topics &amp; Quizzes</h2>
+    <p class="section-sub">Click <strong>Take Quiz</strong> next to any topic to test your understanding.</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Quiz</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Introduction to Python &amp; Data Structures</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Arrays and Lists</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Stacks</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Queues</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Linked Lists</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Trees &amp; Binary Trees</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Binary Search Trees</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Hashing &amp; Hash Tables</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Graphs</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Sorting Algorithms</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+          <tr>
+            <td>Searching Algorithms</td>
+            <td><a href="#" class="quiz-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+              Take Quiz
+            </a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2024 A Sravanthi &nbsp;·&nbsp; ANITS &nbsp;·&nbsp; Department of Computer Science
+  </footer>
+
 </body>
 </html>
